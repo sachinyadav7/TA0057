@@ -1,0 +1,2 @@
+src/contexts/AuthContext.tsx(6,3): error TS2300: Duplicate identifier 'onAuthStateChanged'.
+src/contexts/AuthContext.tsx(7,3): error TS2300: Duplicate identifier 'onAuthStateChanged'.

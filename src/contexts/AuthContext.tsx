@@ -44,6 +44,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const loginGoogle = async () => {
     try {
+      // Mock login fallback if Firebase is not yet configured
+      if (auth.app.options.apiKey === "REPLACE_WITH_YOUR_KEY") {
+        console.warn("Using mock Google login because Firebase config is missing.");
+        setRole('user');
+        // @ts-ignore
+        setUser({ displayName: 'Mock User', email: 'mock@example.com' });
+        return;
+      }
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
     } catch (error) {
@@ -53,6 +61,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const loginGuest = async () => {
     try {
+      // Mock login fallback if Firebase is not yet configured
+      if (auth.app.options.apiKey === "REPLACE_WITH_YOUR_KEY") {
+        console.warn("Using mock Guest login because Firebase config is missing.");
+        setRole('guest');
+        // @ts-ignore
+        setUser({ isAnonymous: true });
+        return;
+      }
       await signInAnonymously(auth);
     } catch (error) {
        console.error("Guest login failed", error);
@@ -61,6 +77,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const logout = async () => {
     try {
+      if (auth.app.options.apiKey === "REPLACE_WITH_YOUR_KEY") {
+         setRole(null);
+         setUser(null);
+         return;
+      }
       await signOut(auth);
       setRole(null);
     } catch (error) {
