@@ -31,7 +31,7 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onAnalyze }) => {
   };
 
   const addRow = () => setSalaries([...salaries, { year: 2024, nominal: 0 }]);
-  
+
   const removeRow = (index: number) => {
     if (salaries.length > 2) {
       setSalaries(salaries.filter((_, i) => i !== index));
@@ -44,13 +44,13 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onAnalyze }) => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-2xl mx-auto p-8 rounded-2xl bg-black/60 backdrop-blur-xl border border-indigo-500/30 shadow-2xl relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-indigo-500 to-teal-400" />
-      
+
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight text-white mb-2">Stagnation<span className="text-indigo-400">Scanner</span></h1>
         <p className="text-gray-400 font-medium tracking-wide">Your Salary Is Growing. Your Life Might Not Be.</p>
@@ -67,17 +67,17 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onAnalyze }) => {
           <div className="space-y-3">
             {salaries.map((pt, i) => (
               <div key={i} className="flex items-center gap-3">
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   value={pt.year}
                   onChange={(e) => handleYearChange(i, parseInt(e.target.value))}
                   className="w-24 bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500 transition-colors"
-                  min={2014} max={2024}
+                  min={2010}
                 />
                 <div className="relative flex-1">
                   <span className="absolute left-3 top-2.5 text-gray-500">₹</span>
-                  <input 
-                    type="number" 
+                  <input
+                    type="number"
                     value={pt.nominal}
                     onChange={(e) => handleSalaryChange(i, parseInt(e.target.value))}
                     className="w-full bg-gray-900 border border-gray-700 rounded-lg pl-8 pr-3 py-2 text-white focus:outline-none focus:border-indigo-500 transition-colors"
@@ -95,7 +95,7 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onAnalyze }) => {
         <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-800">
           <div>
             <label className="block text-sm text-gray-400 mb-1">Sector</label>
-            <select 
+            <select
               value={sector} onChange={(e) => setSector(e.target.value)}
               className="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white outline-none focus:border-indigo-500"
             >
@@ -108,25 +108,25 @@ export const IntakeForm: React.FC<IntakeFormProps> = ({ onAnalyze }) => {
             </select>
           </div>
           <div></div>
-          
+
           <div>
             <label className="block text-sm text-gray-400 mb-1">Monthly Expenses (₹)</label>
-            <input 
+            <input
               type="number" value={expense} onChange={(e) => setExpense(parseInt(e.target.value))}
               className="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white outline-none focus:border-indigo-500"
             />
           </div>
           <div>
             <label className="block text-sm text-gray-400 mb-1">Monthly EMI / Debt (₹)</label>
-            <input 
+            <input
               type="number" value={emi} onChange={(e) => setEmi(parseInt(e.target.value))}
               className="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white outline-none focus:border-indigo-500"
             />
           </div>
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className="w-full group mt-6 relative inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(79,70,229,0.4)]"
         >
           <Calculator size={20} />
