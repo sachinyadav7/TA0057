@@ -31,12 +31,8 @@ const AppContent = () => {
   const [risk, setRisk] = useState<RiskResult | null>(null);
   const [escapeRoutes, setEscapeRoutes] = useState<EscapePath[]>([]);
 
-  // Auto-redirect to services after successful login from home
-  useEffect(() => {
-    if (role && activeTab === 'home') {
-      setActiveTab('services');
-    }
-  }, [role, activeTab]);
+  // Only redirect via AuthContext manual hooks, not automatic observer
+  // Removed automatic tab flipping when returning to Home page.
 
   // Protect the services tab
   useEffect(() => {

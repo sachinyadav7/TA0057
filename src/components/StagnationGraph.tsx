@@ -33,7 +33,7 @@ export const StagnationGraph: React.FC<StagnationGraphProps> = ({ data, declineO
         )}
       </div>
 
-      <div className="h-[300px] w-full mt-4">
+      <div className="h-[300px] w-full mt-4 relative">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
