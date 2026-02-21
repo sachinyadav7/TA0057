@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BrainCircuit, Mail, UserCircle2 } from 'lucide-react';
+import { BrainCircuit, UserCircle2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export const LandingPage: React.FC = () => {
-  const { loginGoogle, loginEmail, loginGuest } = useAuth();
+  const { loginGoogle, loginGuest } = useAuth();
 
   return (
     <div className="min-h-screen bg-black text-white relative flex flex-col items-center justify-center p-4">
@@ -45,14 +45,6 @@ export const LandingPage: React.FC = () => {
                 <path fill="none" d="M1 1h22v22H1z" />
               </svg>
               Continue with Google
-            </button>
-
-            <button
-              onClick={loginEmail}
-              className="w-full flex items-center justify-center gap-3 bg-gray-800 hover:bg-gray-700 text-white font-medium py-3.5 px-4 rounded-xl border border-gray-700 transition-all duration-200"
-            >
-              <Mail className="w-5 h-5 text-gray-400" />
-              Continue with Email
             </button>
 
             <div className="relative py-4">
