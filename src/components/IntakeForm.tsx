@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { SalaryPoint } from '../engine/trajectory';
 import { Calculator, TrendingDown, ArrowRight, Wallet } from 'lucide-react';
@@ -7,16 +7,38 @@ interface IntakeFormProps {
   onAnalyze: (salaries: SalaryPoint[], sector: string, monthlyExpense: number, monthlyEmi: number) => void;
 }
 
+const STORAGE_KEY = 'stang_scanner_userdata';
+
 export const IntakeForm: React.FC<IntakeFormProps> = ({ onAnalyze }) => {
-  const [sector, setSector] = useState("Technology");
-  const [salaries, setSalaries] = useState<SalaryPoint[]>([
+  // Try to load from local storage
+  const loadInitialState = () => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error("Could not load saved data", e);
+    }
+    return null;
+  };
+
+  const initialState = loadInitialState();
+
+  const [sector, setSector] = useState(initialState?.sector || "Technology");
+  const [salaries, setSalaries] = useState<SalaryPoint[]>(initialState?.salaries || [
     { year: 2014, nominal: 600000 },
     { year: 2017, nominal: 800000 },
     { year: 2020, nominal: 1000000 },
     { year: 2024, nominal: 1400000 }
   ]);
-  const [expense, setExpense] = useState(60000);
-  const [emi, setEmi] = useState(20000);
+  const [expense, setExpense] = useState(initialState?.expense || 60000);
+  const [emi, setEmi] = useState(initialState?.emi || 20000);
+
+  // Save to local storage whenever values change
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      sector, salaries, expense, emi
+    }));
+  }, [sector, salaries, expense, emi]);
 
   const handleSalaryChange = (index: number, val: number) => {
     const updated = [...salaries];
